@@ -83,6 +83,10 @@ fi
 echo "Making busybox"
 make distclean
 make defconfig
+sed -i 's/^# CONFIG_BASH_IS_ASH is not set/CONFIG_BASH_IS_ASH=y/' .config
+sed -i 's/^CONFIG_BASH_IS_NONE=y/# CONFIG_BASH_IS_NONE is not set/' .config
+
+yes "" | make oldconfig
 sed -i 's/# CONFIG_BASH_IS_ASH is not set/CONFIG_BASH_IS_ASH=y/' .config
 make ARCH=${ARCH} CROSS_COMPILE=${CROSS_COMPILE}
 make CONFIG_PREFIX=${OUTDIR}/rootfs ARCH=${ARCH} CROSS_COMPILE=${CROSS_COMPILE} install
